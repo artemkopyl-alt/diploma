@@ -145,24 +145,19 @@
             display: flex;
             gap: 8px;
             margin-bottom: 15px;
+            width: 100%;
         }
 
         .size-selector select {
+            width: 100%;
             background-color: #1a1a1a;
             color: #ffffff;
             border: 1px solid #333333;
-            padding: 5px 10px;
+            padding: 8px;
             border-radius: 4px;
             font-size: 14px;
             outline: none;
             cursor: pointer;
-        }
-
-        .product-price {
-            font-size: 20px;
-            font-weight: bold;
-            color: #e50914;
-            margin-bottom: 15px;
         }
 /* Кнопка добавления */
         .add-btn {
@@ -176,6 +171,7 @@
             border-radius: 6px;
             cursor: pointer;
             transition: background-color 0.3s;
+            margin-top: auto;
         }
 
         .add-btn:hover {
@@ -247,38 +243,6 @@
 
             <div class="product-card">
                 <div class="product-image-box">
-                    <img src="https://images.unsplash.com/photo-1512149673953-1e251807ec7c?q=80&w=500" alt="Попкорн карамельный" class="product-img">
-                </div>
-                <div class="product-title">Попкорн Карамельный</div>
-                <div class="product-desc">Густая сладкая карамель покрывает каждое зернышко.</div>
-                <div class="size-selector">
-                    <select>
-                        <option>S (0.7 л) — 300 ₽</option>
-                        <option selected>M (1.5 л) — 400 ₽</option>
-                        <option>L (3.0 л) — 500 ₽</option>
-                    </select>
-                </div>
-                <button class="add-btn">В корзину</button>
-            </div>
-
-            <div class="product-card">
-                <div class="product-image-box">
-                    <img src="https://images.unsplash.com/photo-1593001874117-1f9da96634c4?q=80&w=500" alt="Попкорн сырный" class="product-img">
-                </div>
-<div class="product-title">Попкорн Сырный</div>
-                <div class="product-desc">Для любителей насыщенного пикантного вкуса французского сыра.</div>
-                <div class="size-selector">
-                    <select>
-                        <option>S (0.7 л) — 280 ₽</option>
-                        <option selected>M (1.5 л) — 380 ₽</option>
-                        <option>L (3.0 л) — 480 ₽</option>
-                    </select>
-                </div>
-                <button class="add-btn">В корзину</button>
-            </div>
-
-            <div class="product-card">
-                <div class="product-image-box">
                     <img src="https://images.unsplash.com/photo-1505686994434-e3cc5abf1330?q=80&w=500" alt="Попкорн микс" class="product-img">
                 </div>
                 <div class="product-title">Попкорн Микс</div>
@@ -297,8 +261,8 @@
             
             <div class="product-card">
                 <div class="product-image-box">
-                    <img src="https://images.unsplash.com/photo-1622483767028-3f66f32aef97?q=80&w=500" alt="Кола" class="product-img">
-                </div>
+                    <img src="https://images.unsplash.com/photo-1622483767028-3f66f32aef97?q=80&w=500" alt="Газировка Черноголовка" class="product-img">
+</div>
                 <div class="product-title">Газировка Черноголовка</div>
                 <div class="product-desc">Освежающий сильногазированный классический напиток со льдом.</div>
                 <div class="size-selector">
@@ -313,7 +277,7 @@
 
             <div class="product-card">
                 <div class="product-image-box">
-                    <img src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?q=80&w=500" alt="Лимонад" class="product-img">
+                    <img src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?q=80&w=500" alt="Цитрусовый Лимонад" class="product-img">
                 </div>
                 <div class="product-title">Цитрусовый Лимонад</div>
                 <div class="product-desc">Натуральный лимонад с добавлением сока лимона, апельсина и мяты.</div>
@@ -330,7 +294,7 @@
                     <img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?q=80&w=500" alt="Кофе" class="product-img">
                 </div>
                 <div class="product-title">Капучино / Латте</div>
-                <div class="product-desc">Горячий ароматный кофе из свежеобжаренных кофейных зерен со свежим молоком.</div>
+                <div class="product-desc">Горячий ароматный кофе из свежеобжаренных кофейных зерен с молоком.</div>
                 <div class="size-selector">
                     <select>
                         <option>0.2 л — 160 ₽</option>
@@ -342,8 +306,8 @@
 
             <div class="product-card">
                 <div class="product-image-box">
-                    <img src="https://images.unsplash.com/photo-1523362628745-0c100150b504?q=80&w=500" alt="Вода" class="product-img">
-</div>
+                    <img src="https://images.unsplash.com/photo-1523362628745-0c100150b504?q=80&w=500" alt="Минеральная вода" class="product-img">
+                </div>
                 <div class="product-title">Минеральная Вода</div>
                 <div class="product-desc">Чистая питьевая вода без газа или слабогазированная (в бутылке).</div>
                 <div class="size-selector">
@@ -354,48 +318,18 @@
                 </div>
                 <button class="add-btn">В корзину</button>
             </div>
-        </div>
-
-        <h2 class="category-title">Комбо-наборы (Выгодно)</h2>
-        <div class="bar-grid">
-            
-            <div class="product-card">
-                <div class="product-image-box">
-                    <img src="https://images.unsplash.com/photo-1595708684082-a173bb3a06c5?q=80&w=500" alt="Комбо стандарт" class="product-img">
-                </div>
-                <div class="product-title">Комбо Стандарт</div>
-                <div class="product-desc">Средний попкорн (соленый или сырный) + большой напиток 0.8 л на выбор.</div>
-                <div class="product-price">490 ₽</div>
-                <button class="add-btn">В корзину</button>
-            </div>
 
             <div class="product-card">
                 <div class="product-image-box">
-                    <img src="https://images.unsplash.com/photo-1585647347483-22b66260dfff?q=80&w=500" alt="Комбо для двоих" class="product-img">
+                    <img src="https://images.unsplash.com/photo-1579954115545-a95591f28bfc?q=80&w=500" alt="Молочный коктейль" class="product-img">
                 </div>
-                <div class="product-title">Дабл Комбо</div>
-                <div class="product-desc">Большой сладкий попкорн L + два напитка по 0.5 л. Прекрасный выбор для пары.</div>
-                <div class="product-price">750 ₽</div>
-                <button class="add-btn">В корзину</button>
-            </div>
-
-            <div class="product-card">
-                <div class="product-image-box">
-                    <img src="https://images.unsplash.com/photo-1601574965303-9459b376f31f?q=80&w=500" alt="Детский комбо" class="product-img">
+                <div class="product-title">Молочный коктейль</div>
+                <div class="product-desc">Нежный клубничный или ванильный шейк с густой молочной пенкой.</div>
+                <div class="size-selector">
+                    <select>
+                        <option selected>0.4 л — 250 ₽</option>
+                    </select>
                 </div>
-                <div class="product-title">Детский Набор</div>
-                <div class="product-desc">Маленький сладкий попкорн S + фруктовый сок + коллекционная игрушка.</div>
-                <div class="product-price">390 ₽</div>
-                <button class="add-btn">В корзину</button>
-            </div>
-
-            <div class="product-card">
-                <div class="product-image-box">
-                    <img src="https://images.unsplash.com/photo-1513456852971-30c0b8199d4d?q=80&w=500" alt="VIP комбо" class="product-img">
-                </div>
-                <div class="product-title">VIP Набор</div>
-                <div class="product-desc">Огромный попкорн Микс 3.0 л + Натуральный лимонад + чипсы Начос с соусом.</div>
-                <div class="product-price">890 ₽</div>
                 <button class="add-btn">В корзину</button>
             </div>
         </div>
