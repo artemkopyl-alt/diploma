@@ -1,113 +1,409 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CinemaVerse - Кинобар</title>
-    <link rel="stylesheet" href="css/style.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #050505;
+            color: #ffffff;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            width: 100%;
+        }
+
+        /* Шапка сайта */
+        .main-header {
+            background-color: #0a0a0a;
+            border-bottom: 2px solid #e50914;
+            padding: 20px 0;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: #ffffff;
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .logo span { color: #e50914; }
+
+        .main-nav a {
+            color: #aaaaaa;
+            text-decoration: none;
+            margin-left: 25px;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        .main-nav a:hover, .main-nav a.active { color: #e50914; }
+
+        /* Секция Кинобара */
+        .bar-section {
+            padding: 40px 0 60px 0;
+        }
+
+        .page-title {
+            font-size: 32px;
+            color: #e50914;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .page-subtitle {
+            font-size: 16px;
+            color: #aaaaaa;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        /* Заголовки категорий */
+        .category-title {
+            font-size: 24px;
+            color: #ffffff;
+            border-left: 4px solid #e50914;
+            padding-left: 15px;
+            margin: 40px 0 20px 0;
+        }
+
+        /* Сетка товаров */
+        .bar-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+        }
+
+        .product-card {
+            background-color: #111111;
+            border: 1px solid #1a1a1a;
+            border-radius: 10px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            border-color: #e50914;
+        }
+
+        /* Изображение товара (заглушка-иконка) */
+        .product-image-box {
+            width: 100%;
+            height: 180px;
+            background-color: #1a1a1a;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .product-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .product-desc {
+            font-size: 13px;
+            color: #aaaaaa;
+            margin-bottom: 15px;
+            min-height: 36px;
+        }
+
+        /* Выбор размера / объема */
+        .size-selector {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .size-selector select {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            border: 1px solid #333333;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 14px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .product-price {
+            font-size: 20px;
+            font-weight: bold;
+            color: #e50914;
+            margin-bottom: 15px;
+        }
+/* Кнопка добавления */
+        .add-btn {
+            width: 100%;
+            background-color: #e50914;
+            color: #ffffff;
+            border: none;
+            padding: 10px 0;
+            font-size: 14px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .add-btn:hover {
+            background-color: #b20710;
+        }
+
+        /* Футер */
+        .main-footer {
+            background-color: #0a0a0a;
+            padding: 30px 0;
+            border-top: 1px solid #1a1a1a;
+            font-size: 14px;
+            color: #666666;
+            margin-top: 60px;
+        }
+
+        .footer-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        @media (max-width: 1024px) {
+            .bar-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 600px) {
+            .bar-grid { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
 <body>
 
     <header class="main-header">
         <div class="container header-container">
-            <div class="main-nav">
-                <div class="logo">
-                    <a href="index.html">🍿 <span>CinemaVerse</span></a>
-                </div>
-                <nav class="main-nav">
-                    <ul>
-                        <li><a href="index.html">Главная</a></li>
-                        <li><a href="afisha.html">Афиша</a></li>
-                        <li><a href="popcorn.html" class="active">Кинобар</a></li>
-                        <li><a href="halls.html">Залы</a></li>
-                        <li><a href="about.html">О нас</a></li>
-                        <li><a href="contacts.html">Контакты</a></li>
-                    </ul>
-                </nav>
-            </div>
+            <a href="index.html" class="logo">Cinema<span>Verse</span></a>
+            <nav class="main-nav">
+                <a href="index.html">Главная</a>
+                <a href="afisha.html">Афиша</a>
+                <a href="popcorn.html" class="active">Кинобар</a>
+                <a href="halls.html">Залы</a>
+                <a href="about.html">О нас</a>
+                <a href="contacts.html">Контакты</a>
+            </nav>
         </div>
     </header>
 
-    <main>
-        <section class="bar-section" style="padding: 60px 0; color: #fff; max-width: 900px; margin: 0 auto; text-align: center;">
-            <h2 style="font-size: 36px; margin-bottom: 10px; color: #e50914;">Наш Кинобар</h2>
-            <p style="font-size: 18px; color: #aaa; margin-bottom: 40px;">Возьмите с собой на сеанс хрустящий попкорн и прохладительные напитки!</p>
+    <main class="container bar-section">
+        <h1 class="page-title">Кинобар</h1>
+        <p class="page-subtitle">Возьмите с собой на сеанс хрустящий попкорн и прохладительные напитки</p>
+
+        <h2 class="category-title">Попкорн</h2>
+        <div class="bar-grid">
             
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; padding: 0 20px;">
-                <div style="background: #1a1a1a; padding: 25px; border-radius: 8px; border: 1px solid #222;">
-                    <div style="font-size: 50px; margin-bottom: 15px;">🍿</div>
-                    <h3 style="font-size: 22px; margin-bottom: 10px;">Попкорн Соленый</h3>
-                    <p style="color: #aaa; margin-bottom: 15px;">Классический хрустящий попкорн для истинных киноманов.</p>
-                    <span style="font-size: 20px; color: #e50914; font-weight: bold;">от 350 ₽</span>
+            <div class="product-card">
+                <div class="product-image-box">
+                    <img src="https://placehold.co/250x180/222/fff?text=Попкорн+Классика" alt="Попкорн соленый" class="product-img">
                 </div>
-
-               <div style="background: #1a1a1a; padding: 25px; border-radius: 8px; border: 1px solid #222;">
-                <div style="font-size: 50px; margin-bottom: 15px;">🔺</div>
-                <h3 style="font-size: 22px; margin-bottom: 10px;">Начос с соусом</h3>
-                <p style="color: #aaa; margin-bottom: 15px;">Хрустящие кукурузные чипсы с пикантным сырным соусом.</p>
-                <span style="font-size: 20px; color: #e50914; font-weight: bold;">от 300 ₽</span>
-            </div>
-
-            <div style="background: #1a1a1a; padding: 25px; border-radius: 8px; border: 1px dashed #e50914;">
-                <div style="font-size: 50px; margin-bottom: 15px;">🍿🥤</div>
-                <h3 style="font-size: 22px; margin-bottom: 10px;">Комбо Классик</h3>
-                <p style="color: #aaa; margin-bottom: 15px;">Большой попкорн и холодный напиток со скидкой.</p>
-                <span style="font-size: 20px; color: #e50914; font-weight: bold;">от 500 ₽</span>
-            </div>
-                <div style="background: #1a1a1a; padding: 25px; border-radius: 8px; border: 1px solid #222;">
-                    <div style="font-size: 50px; margin-bottom: 15px;">🥤</div>
-                    <h3 style="font-size: 22px; margin-bottom: 10px;">Напитки со льдом</h3>
-                    <p style="color: #aaa; margin-bottom: 15px;">Освежающие газированные напитки в удобных стаканах.</p>
-                    <span style="font-size: 20px; color: #e50914; font-weight: bold;">от 200 ₽</span>
-                    <div style="background: #1a1a1a; padding: 25px; border-radius: 8px; border: 1px solid #222;">
-                <div style="font-size: 50px; margin-bottom: 15px;">🔺</div>
-                <h3 style="font-size: 22px; margin-bottom: 10px;">Начос с соусом</h3>
-                <p style="color: #aaa; margin-bottom: 15px;">Хрустящие кукурузные чипсы с пикантным сырным соусом.</p>
-                <span style="font-size: 20px; color: #e50914; font-weight: bold;">от 300 ₽</span>
-            </div>
-
-            <div style="background: #1a1a1a; padding: 25px; border-radius: 8px; border: 1px dashed #e50914;">
-                <div style="font-size: 50px; margin-bottom: 15px;">🍿🥤</div>
-                <h3 style="font-size: 22px; margin-bottom: 10px;">Комбо Классик</h3>
-                <p style="color: #aaa; margin-bottom: 15px;">Большой попкорн и холодный напиток со скидкой.</p>
-                <span style="font-size: 20px; color: #e50914; font-weight: bold;">от 500 ₽</span>
-            </div>
-            <div style="background: #1a1a1a; padding: 25px; border-radius: 8px;">
-            <div style="font-size: 50px; margin-bottom: 15px;">☕</div>
-            <h3 style="font-size: 22px; margin-bottom: 10px;">Горячий кофе и чай</h3>
-            <p style="color: #aaa; margin-bottom: 15px;">Ароматный капучино, латте или согревающий чай на выбор гостей.</p>
-            <span style="font-size: 20px; color: #e50914; font-weight: bold;">от 180 ₽</span>
-        </div>
-
-        <div style="background: #1a1a1a; padding: 25px; border-radius: 8px;">
-            <div style="font-size: 50px; margin-bottom: 15px;">🍿</div>
-            <h3 style="font-size: 22px; margin-bottom: 10px;">Попкорн Карамельный</h3>
-            <p style="color: #aaa; margin-bottom: 15px;">Хрустящий сладкий попкорн в большой карамельной глазури.</p>
-            <span style="font-size: 20px; color: #e50914; font-weight: bold;">от 380 ₽</span>
-        </div>
-        <div style="background: #1a1a1a; padding: 25px; border-radius: 8px;">
-            <div style="font-size: 50px; margin-bottom: 15px;">🍿</div>
-            <h3 style="font-size: 22px; margin-bottom: 10px;">Попкорн Карамельный</h3>
-            <p style="color: #aaa; margin-bottom: 15px;">Хрустящий сладкий попкорн в большой карамельной глазури.</p>
-            <span style="font-size: 20px; color: #e50914; font-weight: bold;">от 380 ₽</span>
-        </div>
-
-        <div style="background: #1a1a1a; padding: 25px; border-radius: 8px;">
-            <div style="font-size: 50px; margin-bottom: 15px;">☕</div>
-            <h3 style="font-size: 22px; margin-bottom: 10px;">Горячий кофе и чай</h3>
-            <p style="color: #aaa; margin-bottom: 15px;">Ароматный капучино, латте или согревающий чай для уютного сеанса.</p>
-            <span style="font-size: 20px; color: #e50914; font-weight: bold;">от 180 ₽</span>
-        </div>
-
-
+                <div class="product-title">Попкорн Соленый</div>
+                <div class="product-desc">Классический хрустящий попкорн с добавлением морской соли.</div>
+                <div class="size-selector">
+                    <select>
+                        <option>S (0.7 л) — 250 ₽</option>
+                        <option selected>M (1.5 л) — 350 ₽</option>
+                        <option>L (3.0 л) — 450 ₽</option>
+                    </select>
                 </div>
+                <button class="add-btn">В корзину</button>
             </div>
-        </section>
+
+            <div class="product-card">
+                <div class="product-image-box">
+                    <img src="https://placehold.co/250x180/222/fff?text=Попкорн+Карамель" alt="Попкорн карамельный" class="product-img">
+                </div>
+                <div class="product-title">Попкорн Карамельный</div>
+                <div class="product-desc">Густая сладкая карамель покрывает каждое зернышко.</div>
+                <div class="size-selector">
+                    <select>
+                        <option>S (0.7 л) — 300 ₽</option>
+                        <option selected>M (1.5 л) — 400 ₽</option>
+                        <option>L (3.0 л) — 500 ₽</option>
+                    </select>
+                </div>
+                <button class="add-btn">В корзину</button>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image-box">
+                    <img src="https://placehold.co/250x180/222/fff?text=Попкорн+Сыр" alt="Попкорн сырный" class="product-img">
+                </div>
+                <div class="product-title">Попкорн Сырный</div>
+<div class="product-desc">Для любителей насыщенного пикантного вкуса французского сыра.</div>
+                <div class="size-selector">
+                    <select>
+                        <option>S (0.7 л) — 280 ₽</option>
+                        <option selected>M (1.5 л) — 380 ₽</option>
+                        <option>L (3.0 л) — 480 ₽</option>
+                    </select>
+                </div>
+                <button class="add-btn">В корзину</button>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image-box">
+                    <img src="https://placehold.co/250x180/222/fff?text=Попкорн+Микс" alt="Попкорн микс" class="product-img">
+                </div>
+                <div class="product-title">Попкорн Микс</div>
+                <div class="product-desc">Идеальное сочетание сладкой карамели и соленого попкорна в одном стакане.</div>
+                <div class="size-selector">
+                    <select>
+                        <option selected>L (3.0 л) — 520 ₽</option>
+                    </select>
+                </div>
+                <button class="add-btn">В корзину</button>
+            </div>
+        </div>
+
+        <h2 class="category-title">Напитки</h2>
+        <div class="bar-grid">
+            
+            <div class="product-card">
+                <div class="product-image-box">
+                    <img src="https://placehold.co/250x180/222/fff?text=Cola" alt="Кола" class="product-img">
+                </div>
+                <div class="product-title">Газировка Черноголовка</div>
+                <div class="product-desc">Освежающий сильногазированный классический напиток со льдом.</div>
+                <div class="size-selector">
+                    <select>
+                        <option>0.5 л — 150 ₽</option>
+                        <option selected>0.8 л — 220 ₽</option>
+                        <option>1.0 л — 270 ₽</option>
+                    </select>
+                </div>
+                <button class="add-btn">В корзину</button>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image-box">
+                    <img src="https://placehold.co/250x180/222/fff?text=Лимонад" alt="Лимонад" class="product-img">
+                </div>
+                <div class="product-title">Цитрусовый Лимонад</div>
+                <div class="product-desc">Натуральный лимонад с добавлением сока лимона, апельсина и мяты.</div>
+                <div class="size-selector">
+                    <select>
+                        <option selected>0.5 л — 200 ₽</option>
+                    </select>
+                </div>
+                <button class="add-btn">В корзину</button>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image-box">
+                    <img src="https://placehold.co/250x180/222/fff?text=Кофе" alt="Кофе" class="product-img">
+                </div>
+                <div class="product-title">Капучино / Латте</div>
+                <div class="product-desc">Горячий ароматный кофе из свежеобжаренных кофейных зерен со свежим молоком.</div>
+                <div class="size-selector">
+                    <select>
+                        <option>0.2 л — 160 ₽</option>
+                        <option selected>0.4 л — 230 ₽</option>
+                    </select>
+                </div>
+                <button class="add-btn">В корзину</button>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image-box">
+                    <img src="https://placehold.co/250x180/222/fff?text=Вода" alt="Вода" class="product-img">
+                </div>
+                <div class="product-title">Минеральная Вода</div>
+                <div class="product-desc">Чистая питьевая вода без газа или слабогазированная (в бутылке).</div>
+<div class="size-selector">
+                    <select>
+                        <option selected>0.5 л (Без газа) — 120 ₽</option>
+                        <option>0.5 л (С газом) — 120 ₽</option>
+                    </select>
+                </div>
+                <button class="add-btn">В корзину</button>
+            </div>
+        </div>
+
+        <h2 class="category-title">Комбо-наборы (Выгодно)</h2>
+        <div class="bar-grid">
+            
+            <div class="product-card">
+                <div class="product-image-box">
+                    <img src="https://placehold.co/250x180/222/fff?text=Комбо+Стандарт" alt="Комбо стандарт" class="product-img">
+                </div>
+                <div class="product-title">Комбо Стандарт</div>
+                <div class="product-desc">Средний попкорн (соленый или сырный) + большой напиток 0.8 л на выбор.</div>
+                <div class="product-price">490 ₽</div>
+                <button class="add-btn">В корзину</button>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image-box">
+                    <img src="https://placehold.co/250x180/222/fff?text=Комбо+Дабл" alt="Комбо для двоих" class="product-img">
+                </div>
+                <div class="product-title">Дабл Комбо</div>
+                <div class="product-desc">Большой сладкий попкорн L + два напитка по 0.5 л. Прекрасный выбор для пары.</div>
+                <div class="product-price">750 ₽</div>
+                <button class="add-btn">В корзину</button>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image-box">
+                    <img src="https://placehold.co/250x180/222/fff?text=Детский+Набор" alt="Детский комбо" class="product-img">
+                </div>
+                <div class="product-title">Детский Набор</div>
+                <div class="product-desc">Маленький сладкий попкорн S + фруктовый сок + коллекционная игрушка.</div>
+                <div class="product-price">390 ₽</div>
+                <button class="add-btn">В корзину</button>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image-box">
+                    <img src="https://placehold.co/250x180/222/fff?text=VIP+Комбо" alt="VIP комбо" class="product-img">
+                </div>
+                <div class="product-title">VIP Набор</div>
+                <div class="product-desc">Огромный попкорн Микс 3.0 л + Натуральный лимонад + чипсы Начос с соусом.</div>
+                <div class="product-price">890 ₽</div>
+                <button class="add-btn">В корзину</button>
+            </div>
+        </div>
     </main>
 
     <footer class="main-footer">
         <div class="container footer-container">
-            <p>&copy; 2026 CinemaVerse. Дипломный проект Академии ШАГ.</p>
+            <p>&copy; 2026 CinemaVerse.</p>
             <p>Выполнил: Копылов Артем</p>
         </div>
     </footer>
