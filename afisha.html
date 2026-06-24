@@ -1,85 +1,310 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CinemaVerse - Расписание сеансов</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>CinemaVerse - Афиша</title>
+    <style>
+        /* Общие стили для темной темы CinemaVerse */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #050505;
+            color: #ffffff;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            width: 100%;
+        }
+
+        /* Шапка сайта */
+        .main-header {
+            background-color: #0a0a0a;
+            border-bottom: 2px solid #e50914;
+            padding: 20px 0;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: #ffffff;
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: #e50914;
+        }
+
+        .main-nav a {
+            color: #aaaaaa;
+            text-decoration: none;
+            margin-left: 25px;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        .main-nav a:hover, .main-nav a.active {
+            color: #e50914;
+        }
+
+        /* Секция Афиши */
+        .afisha-section {
+            padding: 60px 0;
+            flex: 1;
+        }
+
+        .afisha-title {
+            font-size: 42px;
+            color: #e50914;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .afisha-subtitle {
+            font-size: 18px;
+            color: #aaaaaa;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        /* СЕТКА GRID НА 5 КОЛОНОК */
+        .movies-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr); /* 5 фильмов в один ряд */
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        /* Карточка фильма */
+        .movie-card {
+            background-color: #111111;
+            border: 1px solid #1a1a1a;
+            border-radius: 10px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s, border-color 0.3s;
+            position: relative;
+        }
+
+        .movie-card:hover {
+            transform: translateY(-5px);
+            border-color: #e50914;
+        }
+
+        /* Область для постера */
+        .poster-wrapper {
+            width: 100%;
+            height: 280px;
+            background-color: #222222;
+            position: relative;
+        }
+
+        .poster-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Возрастной рейтинг в углу постера */
+        .age-rating {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(229, 9, 20, 0.9);
+            color: white;
+            padding: 3px 6px;
+            font-size: 12px;
+            font-weight: bold;
+            border-radius: 4px;
+        }
+
+        /* Описание под постером */
+        .movie-info {
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: space-between;
+        }
+
+        .movie-name {
+            font-size: 16px;
+            font-weight: bold;
+            color: #ffffff;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+
+        .movie-genre {
+            font-size: 12px;
+            color: #666666;
+            margin-bottom: 15px;
+        }
+/* Кнопка покупки билета (теперь плавно скроллит вниз к контактам!) */
+        .ticket-btn {
+            background-color: transparent;
+            border: 1px solid #e50914;
+            color: #ffffff;
+            padding: 8px 0;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: background-color 0.3s, color 0.3s;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .ticket-btn:hover {
+            background-color: #e50914;
+            color: #ffffff;
+        }
+
+        /* Подвал сайта */
+        .main-footer {
+            background-color: #0a0a0a;
+            padding: 30px 0;
+            border-top: 1px solid #1a1a1a;
+            font-size: 14px;
+            color: #666666;
+        }
+
+        .footer-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Адаптивность для мобильных устройств */
+        @media (max-width: 1000px) {
+            .movies-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        @media (max-width: 600px) {
+            .movies-grid {
+                grid-template-columns: repeat(1, 1fr);
+            }
+        }
+    </style>
 </head>
 <body>
 
     <header class="main-header">
         <div class="container header-container">
-            <div class="main-nav">
-                <div class="logo">
-                    <a href="index.html">🍿 <span>CinemaVerse</span></a>
-                </div>
-                <nav class="main-nav">
-                    <ul>
-                        <li><a href="index.html">Главная</a></li>
-                        <li><a href="afisha.html" class="active">Афиша</a></li>
-                        <li><a href="popcorn.html">Кинобар</a></li>
-                        <li><a href="halls.html">Залы</a></li>
-                        <li><a href="about.html">О нас</a></li>
-                        <li><a href="contacts.html">Контакты</a></li>
-                    </ul>
-                </nav>
-            </div>
+            <a href="index.html" class="logo">Cinema<span>Verse</span></a>
+            <nav class="main-nav">
+                <a href="index.html">Главная</a>
+                <a href="afisha.html" class="active">Афиша</a>
+                <a href="popcorn.html">Кинобар</a>
+                <a href="halls.html">Залы</a>
+                <a href="about.html">О нас</a>
+                <a href="contacts.html">Контакты</a>
+            </nav>
         </div>
     </header>
 
-    <main>
-        <section class="afisha-section" style="padding: 60px 0; color: #fff; max-width: 900px; margin: 0 auto;">
-            <h2 style="font-size: 36px; margin-bottom: 10px; color: #e50914; text-align: center;">Расписание сеансов</h2>
-            <p style="font-size: 18px; color: #aaa; margin-bottom: 40px; text-align: center;">Выберите удобное время и отправляйтесь в кино!</p>
-            
-            <div style="display: flex; flex-direction: column; gap: 30px; padding: 0 20px;">
+    <main class="afisha-section">
+        <div class="container">
+            <h1 class="afisha-title">Сейчас в кино</h1>
+            <p class="afisha-subtitle">Актуальное расписание сеансов в мультиплексе CinemaVerse</p>
+
+            <div class="movies-grid">
                 
-                <div style="background: #1a1a1a; padding: 25px; border-radius: 8px; border: 1px solid #222; display: flex; flex-wrap: wrap; gap: 25px; align-items: center;">
-                    <div style="flex: 1; min-width: 280px;">
-                        <h3 style="font-size: 24px; margin-bottom: 5px; color: #fff;">Космический рубеж</h3>
-                        <p style="color: #666; font-size: 14px; margin-bottom: 15px;">Фантастика, Драма • 120 мин.</p>
-                        
-                        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                            <span style="background: #222; padding: 8px 15px; border-radius: 4px; border: 1px solid #333; color: #e50914; font-weight: bold; cursor: pointer;">10:30 <span style="font-size: 11px; color: #666; display: block; font-weight: normal;">Зал 1 (Classic)</span></span>
-                            <span style="background: #222; padding: 8px 15px; border-radius: 4px; border: 1px solid #333; color: #e50914; font-weight: bold; cursor: pointer;">14:15 <span style="font-size: 11px; color: #666; display: block; font-weight: normal;">Зал 1 (Classic)</span></span>
-                            <span style="background: #e50914; padding: 8px 15px; border-radius: 4px; color: #fff; font-weight: bold; cursor: pointer;">19:00 <span style="font-size: 11px; color: #eee; display: block; font-weight: normal;">VIP Lounge</span></span>
+                <div class="movie-card">
+                    <div class="poster-wrapper">
+                        <span class="age-rating">16+</span>
+                        <img src="изображения/movie1.jpg" alt="Постер фильма">
+                    </div>
+                    <div class="movie-info">
+                        <div>
+                            <h3 class="movie-name">Дюна: Часть вторая</h3>
+                            <p class="movie-genre">Фантастика, боевик, драма</p>
                         </div>
+                        <a href="contacts.html" class="ticket-btn">Билеты</a>
                     </div>
                 </div>
 
-                <div style="background: #1a1a1a; padding: 25px; border-radius: 8px; border: 1px solid #222; display: flex; flex-wrap: wrap; gap: 25px; align-items: center;">
-                    <div style="flex: 1; min-width: 280px;">
-                        <h3 style="font-size: 24px; margin-bottom: 5px; color: #fff;">Тайны океана</h3>
-                        <p style="color: #666; font-size: 14px; margin-bottom: 15px;">Документальный, Приключения • 95 мин.</p>
-                        
-                        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                            <span style="background: #222; padding: 8px 15px; border-radius: 4px; border: 1px solid #333; color: #e50914; font-weight: bold; cursor: pointer;">12:00 <span style="font-size: 11px; color: #666; display: block; font-weight: normal;">Зал 1 (Classic)</span></span>
-<span style="background: #222; padding: 8px 15px; border-radius: 4px; border: 1px solid #333; color: #e50914; font-weight: bold; cursor: pointer;">16:30 <span style="font-size: 11px; color: #666; display: block; font-weight: normal;">Зал 1 (Classic)</span></span>
+                <div class="movie-card">
+                    <div class="poster-wrapper">
+                        <span class="age-rating">18+</span>
+                        <img src="изображения/movie2.jpg" alt="Постер фильма">
+                    </div>
+                    <div class="movie-info">
+                        <div>
+                            <h3 class="movie-name">Оппенгеймер</h3>
+                            <p class="movie-genre">Биография, драма, история</p>
                         </div>
+                        <a href="contacts.html" class="ticket-btn">Билеты</a>
                     </div>
                 </div>
 
-                <div style="background: #1a1a1a; padding: 25px; border-radius: 8px; border: 1px solid #222; display: flex; flex-wrap: wrap; gap: 25px; align-items: center;">
-                    <div style="flex: 1; min-width: 280px;">
-                        <h3 style="font-size: 24px; margin-bottom: 5px; color: #fff;">Ночной экспресс</h3>
-                        <p style="color: #666; font-size: 14px; margin-bottom: 15px;">Детектив, Триллер • 110 мин.</p>
-                        
-                        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                            <span style="background: #222; padding: 8px 15px; border-radius: 4px; border: 1px solid #333; color: #e50914; font-weight: bold; cursor: pointer;">18:00 <span style="font-size: 11px; color: #666; display: block; font-weight: normal;">Зал 1 (Classic)</span></span>
-                            <span style="background: #222; padding: 8px 15px; border-radius: 4px; border: 1px solid #333; color: #e50914; font-weight: bold; cursor: pointer;">21:30 <span style="font-size: 11px; color: #666; display: block; font-weight: normal;">VIP Lounge</span></span>
-                            <span style="background: #222; padding: 8px 15px; border-radius: 4px; border: 1px solid #333; color: #e50914; font-weight: bold; cursor: pointer;">23:45 <span style="font-size: 11px; color: #666; display: block; font-weight: normal;">Зал 1 (Classic)</span></span>
+                <div class="movie-card">
+                    <div class="poster-wrapper">
+                        <span class="age-rating">16+</span>
+                        <img src="изображения/movie3.jpg" alt="Постер фильма">
+                    </div>
+                    <div class="movie-info">
+                        <div>
+                            <h3 class="movie-name">Бэтмен</h3>
+                            <p class="movie-genre">Детектив, боевик, криминал</p>
                         </div>
+                        <a href="contacts.html" class="ticket-btn">Билеты</a>
+                    </div>
+                </div>
+<div class="movie-card">
+                    <div class="poster-wrapper">
+                        <span class="age-rating">12+</span>
+                        <img src="изображения/movie4.jpg" alt="Постер фильма">
+                    </div>
+                    <div class="movie-info">
+                        <div>
+                            <h3 class="movie-name">Матрица: Воскрешение</h3>
+                            <p class="movie-genre">Фантастика, боевик</p>
+                        </div>
+                        <a href="contacts.html" class="ticket-btn">Билеты</a>
+                    </div>
+                </div>
+
+                <div class="movie-card">
+                    <div class="poster-wrapper">
+                        <span class="age-rating">12+</span>
+                        <img src="изображения/movie5.jpg" alt="Постер фильма">
+                    </div>
+                    <div class="movie-info">
+                        <div>
+                            <h3 class="movie-name">Аватар: Путь воды</h3>
+                            <p class="movie-genre">Фантастика, приключения</p>
+                        </div>
+                        <a href="contacts.html" class="ticket-btn">Билеты</a>
                     </div>
                 </div>
 
             </div>
-        </section>
+        </div>
     </main>
 
     <footer class="main-footer">
         <div class="container footer-container">
-            <p>&copy; 2026 CinemaVerse. Дипломный проект Академии ШАГ.</p>
+            <p>&copy; 2026 CinemaVerse.</p>
             <p>Выполнил: Копылов Артем</p>
         </div>
     </footer>
