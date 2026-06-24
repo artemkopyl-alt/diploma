@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CinemaVerse - Афиша</title>
+    <title>CinemaVerse - Наши Залы</title>
     <style>
         * {
             box-sizing: border-box;
@@ -24,6 +24,7 @@
             width: 100%;
         }
 
+        /* Шапка сайта */
         .main-header {
             background-color: #0a0a0a;
             border-bottom: 2px solid #e50914;
@@ -59,7 +60,8 @@
             color: #e50914;
         }
 
-        .movies-section {
+        /* Основной контент */
+        .halls-section {
             padding: 40px 0 60px 0;
         }
 
@@ -77,122 +79,375 @@
             margin-bottom: 40px;
         }
 
-        .movies-grid {
+        /* Карточки залов */
+        .halls-grid {
             display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 20px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 60px;
         }
 
-        .movie-card {
+        .hall-card {
             background-color: #111111;
             border: 1px solid #1a1a1a;
-            border-radius: 10px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            transition: transform 0.3s, border-color 0.3s;
-            position: relative;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            transition: border-color 0.3s;
         }
 
-        .movie-card:hover {
-            transform: translateY(-5px);
+        .hall-card:hover {
             border-color: #e50914;
         }
 
-        .poster-wrapper {
-            width: 100%;
-            height: 280px;
-            background-color: #222222;
-            position: relative;
-        }
-
-        .poster-wrapper img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .age-rating {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: rgba(229, 9, 20, 0.9);
-            color: white;
-            padding: 3px 6px;
-            font-size: 12px;
+        .hall-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
             font-weight: bold;
-            border-radius: 4px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
         }
 
-        .movie-info {
-            padding: 15px;
+        .badge-red { background-color: #e50914; color: #fff; }
+        .badge-blue { background-color: #0071e3; color: #fff; }
+        .badge-imax { background-color: #e6b800; color: #000; }
+
+        .hall-card h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .hall-card p {
+            color: #aaaaaa;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .hall-price {
+            font-size: 18px;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        .hall-price span {
+            color: #e50914;
+        }
+
+        /* Интерактивная схема бронирования */
+        .booking-block {
+            background-color: #0a0a0a;
+            border: 1px solid #1a1a1a;
+            border-radius: 15px;
+            padding: 40px;
             display: flex;
             flex-direction: column;
-            flex-grow: 1;
-            justify-content: space-between;
+            align-items: center;
         }
 
-        .movie-name {
-            font-size: 15px;
+        .booking-title {
+            font-size: 24px;
+            margin-bottom: 30px;
+        }
+
+        /* Экран */
+        .screen-container {
+            perspective: 300px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CinemaVerse - Наши Залы</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #050505;
+            color: #ffffff;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            width: 100%;
+        }
+
+        /* Шапка сайта */
+        .main-header {
+            background-color: #0a0a0a;
+            border-bottom: 2px solid #e50914;
+            padding: 20px 0;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: #ffffff;
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: #e50914;
+        }
+
+        .main-nav a {
+            color: #aaaaaa;
+            text-decoration: none;
+            margin-left: 25px;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        .main-nav a:hover, .main-nav a.active {
+            color: #e50914;
+        }
+
+        /* Основной контент */
+        .halls-section {
+            padding: 40px 0 60px 0;
+        }
+
+        .section-title {
+            font-size: 32px;
+            color: #e50914;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .section-subtitle {
+            font-size: 16px;
+            color: #aaaaaa;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        /* Карточки залов */
+        .halls-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .hall-card {
+            background-color: #111111;
+            border: 1px solid #1a1a1a;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            transition: border-color 0.3s;
+        }
+
+        .hall-card:hover {
+            border-color: #e50914;
+        }
+
+        .hall-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .badge-red { background-color: #e50914; color: #fff; }
+        .badge-blue { background-color: #0071e3; color: #fff; }
+        .badge-imax { background-color: #e6b800; color: #000; }
+
+        .hall-card h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .hall-card p {
+            color: #aaaaaa;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .hall-price {
+            font-size: 18px;
             font-weight: bold;
             color: #ffffff;
-            margin-bottom: 5px;
-            line-height: 1.3;
-            min-height: 40px;
         }
 
-        .sessions-block {
-            margin: 10px 0;
+        .hall-price span {
+            color: #e50914;
         }
 
-        .sessions-title {
-            font-size: 11px;
-            color: #666666;
-            text-transform: uppercase;
-            margin-bottom: 5px;
-            letter-spacing: 0.5px;
-        }
-
-        .sessions-list {
+        /* Интерактивная схема бронирования */
+        .booking-block {
+            background-color: #0a0a0a;
+            border: 1px solid #1a1a1a;
+            border-radius: 15px;
+            padding: 40px;
             display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
+            flex-direction: column;
+            align-items: center;
         }
 
-        .session-time {
-            background-color: #222222;
-            color: #ffffff;
-            padding: 4px 6px;
-            font-size: 12px;
-            border-radius: 4px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: background-color 0.2s, color 0.2s;
+        .booking-title {
+            font-size: 24px;
+            margin-bottom: 30px;
         }
-.session-time:hover {
+
+        /* Экран */
+        .screen-container {
+            perspective: 300px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+.screen {
+            background-color: #ffffff;
+            height: 40px;
+            width: 60%;
+            max-width: 400px;
+            transform: rotateX(-30deg);
+            box-shadow: 0 3px 25px rgba(255, 255, 255, 0.5);
+            border-radius: 4px;
+        }
+
+        .screen-text {
+            margin-top: 10px;
+            color: #555555;
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: 4px;
+        }
+
+        /* Сетка кресел */
+        .seating-chart {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 35px;
+        }
+
+        .row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .row-number {
+            font-size: 12px;
+            color: #555555;
+            width: 20px;
+        }
+
+        /* Скрываем чекбокс */
+        .seat-checkbox {
+            display: none;
+        }
+
+        /* Рисуем кресло */
+        .seat {
+            display: block;
+            width: 28px;
+            height: 24px;
+            background-color: #222222;
+            border: 1px solid #333333;
+            border-top-left-radius: 6px;
+            border-top-right-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .seat:hover {
+            background-color: #444444;
+            transform: scale(1.1);
+        }
+
+        /* Когда чекбокс выбран — красим в красный */
+        .seat-checkbox:checked + .seat {
+            background-color: #e50914;
+            border-color: #e50914;
+            box-shadow: 0 0 8px rgba(229, 9, 20, 0.6);
+        }
+
+        /* Занятые места */
+        .seat.occupied {
+            background-color: #333333;
+            opacity: 0.2;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        /* Легенда */
+        .legend {
+            display: flex;
+            gap: 25px;
+            margin-bottom: 35px;
+            background-color: #111111;
+            padding: 12px 25px;
+            border-radius: 8px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: #aaaaaa;
+        }
+
+        .legend-item .demo {
+            width: 18px;
+            height: 16px;
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px;
+        }
+        .demo-free { background-color: #222; border: 1px solid #333; }
+        .demo-select { background-color: #e50914; }
+        .demo-busy { background-color: #333; opacity: 0.2; }
+
+        /* Кнопка */
+        .checkout-btn {
             background-color: #e50914;
             color: #ffffff;
-        }
-
-        .ticket-btn {
-            background-color: transparent;
-            border: 1px solid #e50914;
-            color: #ffffff;
-            padding: 8px 0;
+            border: none;
+            padding: 14px 40px;
+            font-size: 16px;
+            font-weight: bold;
             border-radius: 6px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 600;
-            text-align: center;
             text-decoration: none;
             transition: background-color 0.3s;
-            margin-top: 10px;
+            cursor: pointer;
         }
 
-        .ticket-btn:hover {
-            background-color: #e50914;
+        .checkout-btn:hover {
+            background-color: #b20710;
         }
 
+        /* Футер */
         .main-footer {
             background-color: #0a0a0a;
             padding: 30px 0;
@@ -208,11 +463,8 @@
             align-items: center;
         }
 
-        @media (max-width: 1000px) {
-            .movies-grid { grid-template-columns: repeat(3, 1fr); }
-        }
-        @media (max-width: 600px) {
-            .movies-grid { grid-template-columns: repeat(1, 1fr); }
+        @media (max-width: 900px) {
+            .halls-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -221,130 +473,128 @@
     <header class="main-header">
         <div class="container header-container">
             <a href="index.html" class="logo">Cinema<span>Verse</span></a>
-            <nav class="main-nav">
+<nav class="main-nav">
                 <a href="index.html">Главная</a>
-                <a href="afisha.html" class="active">Афиша</a>
+                <a href="afisha.html">Афиша</a>
                 <a href="popcorn.html">Кинобар</a>
-                <a href="halls.html">Залы</a>
+                <a href="halls.html" class="active">Залы</a>
                 <a href="about.html">О нас</a>
                 <a href="contacts.html">Контакты</a>
             </nav>
         </div>
     </header>
 
-    <main class="movies-section">
-        <div class="container">
-            <h1 class="section-title">Сейчас в кино</h1>
-            <p class="section-subtitle">Актуальное расписание сеансов в мультиплексе CinemaVerse</p>
+    <main class="container halls-section">
+        <h1 class="section-title">Наши Кинозалы</h1>
+        <p class="section-subtitle">Современные технологии, идеальный звук и максимальный комфорт</p>
+
+        <div class="halls-grid">
             
-            <div class="movies-grid">
-                
-                <div class="movie-card">
-                    <div class="poster-wrapper">
-                        <span class="age-rating">16+</span>
-                        <img src="images/movie1.jpg" alt="Постер">
-                    </div>
-                    <div class="movie-info">
-                        <div>
-                            <h3 class="movie-name">Дюна: Часть первая</h3>
-                            <div class="sessions-block">
-                                <p class="sessions-title">Выберите время:</p>
-                                <div class="sessions-list">
-                                    <a href="halls.html" class="session-time">10:00</a>
-                                    <a href="halls.html" class="session-time">13:10</a>
-                                    <a href="halls.html" class="session-time">19:40</a>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="halls.html" class="ticket-btn">Купить билет</a>
-                    </div>
-                </div>
-
-                <div class="movie-card">
-                    <div class="poster-wrapper">
-                        <span class="age-rating">18+</span>
-                        <img src="images/movie2.jpg" alt="Постер">
-                    </div>
-                    <div class="movie-info">
-                        <div>
-                            <h3 class="movie-name">Оппенгеймер</h3>
-                            <div class="sessions-block">
-                                <p class="sessions-title">Выберите время:</p>
-                                <div class="sessions-list">
-                                    <a href="halls.html" class="session-time">12:00</a>
-<a href="halls.html" class="session-time">16:30</a>
-                                    <a href="halls.html" class="session-time">21:00</a>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="halls.html" class="ticket-btn">Купить билет</a>
-                    </div>
-                </div>
-
-                <div class="movie-card">
-                    <div class="poster-wrapper">
-                        <span class="age-rating">12+</span>
-                        <img src="images/movie3.jpg" alt="Постер">
-                    </div>
-                    <div class="movie-info">
-                        <div>
-                            <h3 class="movie-name">Человек-паук: Нет пути домой</h3>
-                            <div class="sessions-block">
-                                <p class="sessions-title">Выберите время:</p>
-                                <div class="sessions-list">
-                                    <a href="halls.html" class="session-time">11:10</a>
-                                    <a href="halls.html" class="session-time">14:50</a>
-                                    <a href="halls.html" class="session-time">18:15</a>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="halls.html" class="ticket-btn">Купить билет</a>
-                    </div>
-                </div>
-
-                <div class="movie-card">
-                    <div class="poster-wrapper">
-                        <span class="age-rating">16+</span>
-                        <img src="images/movie4.jpg" alt="Постер">
-                    </div>
-                    <div class="movie-info">
-                        <div>
-                            <h3 class="movie-name">Интерстеллар</h3>
-                            <div class="sessions-block">
-                                <p class="sessions-title">Выберите время:</p>
-                                <div class="sessions-list">
-                                    <a href="halls.html" class="session-time">14:00</a>
-                                    <a href="halls.html" class="session-time">17:40</a>
-                                    <a href="halls.html" class="session-time">22:10</a>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="halls.html" class="ticket-btn">Купить билет</a>
-                    </div>
-                </div>
-
-                <div class="movie-card">
-                    <div class="poster-wrapper">
-                        <span class="age-rating">12+</span>
-                        <img src="images/movie5.jpg" alt="Постер">
-                    </div>
-                    <div class="movie-info">
-                        <div>
-                            <h3 class="movie-name">Аватар: Путь воды</h3>
-                            <div class="sessions-block">
-                                <p class="sessions-title">Выберите время:</p>
-                                <div class="sessions-list">
-                                    <a href="halls.html" class="session-time">10:30</a>
-                                    <a href="halls.html" class="session-time">15:00</a>
-                                    <a href="halls.html" class="session-time">20:00</a>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="halls.html" class="ticket-btn">Купить билет</a>
-                    </div>
-                </div>
-
+            <div class="hall-card">
+                <span class="hall-badge badge-red">Красный зал</span>
+                <h3>Классика кино</h3>
+                <p>Уютный зал со стандартными мягкими креслами и акустической системой Dolby Digital 7.1.</p>
+                <p class="hall-price">Цена: <span>350 ₽</span></p>
             </div>
+
+            <div class="hall-card">
+                <span class="hall-badge badge-blue">Синий зал</span>
+                <h3>Повышенный комфорт</h3>
+                <p>Увеличенное расстояние между рядами, улучшенные кресла-рокеры и кристальный звук.</p>
+                <p class="hall-price">Цена: <span>400 ₽</span></p>
+            </div>
+
+            <div class="hall-card">
+                <span class="hall-badge badge-imax">Зал IMAX</span>
+                <h3>Максимальное погружение</h3>
+                <p>Огромный гигантский экран, лазерный 4K проектор и мощнейший премиальный иммерсивный звук.</p>
+                <p class="hall-price">Цена: <span>500 ₽</span></p>
+            </div>
+
+        </div>
+
+        <div class="booking-block">
+            <h2 class="booking-title">Онлайн-бронирование мест</h2>
+
+            <div class="screen-container">
+                <div class="screen"></div>
+                <p class="screen-text">Экран</p>
+            </div>
+
+            <div class="seating-chart">
+                <div class="row">
+                    <span class="row-number">1</span>
+                    <input type="checkbox" id="r1-s1" class="seat-checkbox"><label for="r1-s1" class="seat"></label>
+                    <input type="checkbox" id="r1-s2" class="seat-checkbox"><label for="r1-s2" class="seat"></label>
+                    <div class="seat occupied"></div>
+                    <input type="checkbox" id="r1-s4" class="seat-checkbox"><label for="r1-s4" class="seat"></label>
+                    <input type="checkbox" id="r1-s5" class="seat-checkbox"><label for="r1-s5" class="seat"></label>
+                    <input type="checkbox" id="r1-s6" class="seat-checkbox"><label for="r1-s6" class="seat"></label>
+                    <div class="seat occupied"></div>
+                    <input type="checkbox" id="r1-s8" class="seat-checkbox"><label for="r1-s8" class="seat"></label>
+                    <span class="row-number" style="text-align: right;">1</span>
+                </div>
+
+                <div class="row">
+                    <span class="row-number">2</span>
+                    <input type="checkbox" id="r2-s1" class="seat-checkbox"><label for="r2-s1" class="seat"></label>
+                    <input type="checkbox" id="r2-s2" class="seat-checkbox"><label for="r2-s2" class="seat"></label>
+                    <input type="checkbox" id="r2-s3" class="seat-checkbox"><label for="r2-s3" class="seat"></label>
+                    <input type="checkbox" id="r2-s4" class="seat-checkbox"><label for="r2-s4" class="seat"></label>
+                    <input type="checkbox" id="r2-s5" class="seat-checkbox"><label for="r2-s5" class="seat"></label>
+                    <input type="checkbox" id="r2-s6" class="seat-checkbox"><label for="r2-s6" class="seat"></label>
+                    <input type="checkbox" id="r2-s7" class="seat-checkbox"><label for="r2-s7" class="seat"></label>
+<input type="checkbox" id="r2-s8" class="seat-checkbox"><label for="r2-s8" class="seat"></label>
+                    <span class="row-number" style="text-align: right;">2</span>
+                </div>
+
+                <div class="row">
+                    <span class="row-number">3</span>
+                    <div class="seat occupied"></div>
+                    <input type="checkbox" id="r3-s2" class="seat-checkbox"><label for="r3-s2" class="seat"></label>
+                    <input type="checkbox" id="r3-s3" class="seat-checkbox"><label for="r3-s3" class="seat"></label>
+                    <div class="seat occupied"></div>
+                    <div class="seat occupied"></div>
+                    <input type="checkbox" id="r3-s6" class="seat-checkbox"><label for="r3-s6" class="seat"></label>
+                    <input type="checkbox" id="r3-s7" class="seat-checkbox"><label for="r3-s7" class="seat"></label>
+                    <input type="checkbox" id="r3-s8" class="seat-checkbox"><label for="r3-s8" class="seat"></label>
+                    <span class="row-number" style="text-align: right;">3</span>
+                </div>
+
+                <div class="row">
+                    <span class="row-number">4</span>
+                    <input type="checkbox" id="r4-s1" class="seat-checkbox"><label for="r4-s1" class="seat"></label>
+                    <input type="checkbox" id="r4-s2" class="seat-checkbox"><label for="r4-s2" class="seat"></label>
+                    <input type="checkbox" id="r4-s3" class="seat-checkbox"><label for="r4-s3" class="seat"></label>
+                    <input type="checkbox" id="r4-s4" class="seat-checkbox"><label for="r4-s4" class="seat"></label>
+                    <input type="checkbox" id="r4-s5" class="seat-checkbox"><label for="r4-s5" class="seat"></label>
+                    <input type="checkbox" id="r4-s6" class="seat-checkbox"><label for="r4-s6" class="seat"></label>
+                    <div class="seat occupied"></div>
+                    <input type="checkbox" id="r4-s8" class="seat-checkbox"><label for="r4-s8" class="seat"></label>
+                    <span class="row-number" style="text-align: right;">4</span>
+                </div>
+
+                <div class="row">
+                    <span class="row-number">5</span>
+                    <input type="checkbox" id="r5-s1" class="seat-checkbox"><label for="r5-s1" class="seat"></label>
+                    <input type="checkbox" id="r5-s2" class="seat-checkbox"><label for="r5-s2" class="seat"></label>
+                    <input type="checkbox" id="r5-s3" class="seat-checkbox"><label for="r5-s3" class="seat"></label>
+                    <input type="checkbox" id="r5-s4" class="seat-checkbox"><label for="r5-s4" class="seat"></label>
+                    <input type="checkbox" id="r5-s5" class="seat-checkbox"><label for="r5-s5" class="seat"></label>
+                    <input type="checkbox" id="r5-s6" class="seat-checkbox"><label for="r5-s6" class="seat"></label>
+                    <input type="checkbox" id="r5-s7" class="seat-checkbox"><label for="r5-s7" class="seat"></label>
+                    <input type="checkbox" id="r5-s8" class="seat-checkbox"><label for="r5-s8" class="seat"></label>
+                    <span class="row-number" style="text-align: right;">5</span>
+                </div>
+            </div>
+
+            <div class="legend">
+                <div class="legend-item"><div class="demo demo-free"></div> Свободно</div>
+                <div class="legend-item"><div class="demo demo-select"></div> Выбрано</div>
+                <div class="legend-item"><div class="demo demo-busy"></div> Занято</div>
+            </div>
+
+            <a href="index.html" class="checkout-btn">Забронировать места</a>
         </div>
     </main>
 
@@ -357,352 +607,3 @@
 
 </body>
 </html>
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CinemaVerse - Афиша</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            background-color: #050505;
-            color: #ffffff;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            width: 100%;
-        }
-
-        .main-header {
-            background-color: #0a0a0a;
-            border-bottom: 2px solid #e50914;
-            padding: 20px 0;
-        }
-
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            color: #ffffff;
-            font-size: 24px;
-            font-weight: bold;
-            text-decoration: none;
-        }
-
-        .logo span {
-            color: #e50914;
-        }
-
-        .main-nav a {
-            color: #aaaaaa;
-            text-decoration: none;
-            margin-left: 25px;
-            font-size: 16px;
-            transition: color 0.3s;
-        }
-
-        .main-nav a:hover, .main-nav a.active {
-            color: #e50914;
-        }
-
-        .movies-section {
-            padding: 40px 0 60px 0;
-        }
-
-        .section-title {
-            font-size: 32px;
-            color: #e50914;
-            text-align: center;
-            margin-bottom: 10px;
-        }
-
-        .section-subtitle {
-            font-size: 16px;
-            color: #aaaaaa;
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .movies-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 20px;
-        }
-
-        .movie-card {
-            background-color: #111111;
-            border: 1px solid #1a1a1a;
-            border-radius: 10px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            transition: transform 0.3s, border-color 0.3s;
-            position: relative;
-        }
-
-        .movie-card:hover {
-            transform: translateY(-5px);
-            border-color: #e50914;
-        }
-
-        .poster-wrapper {
-            width: 100%;
-            height: 280px;
-            background-color: #222222;
-            position: relative;
-        }
-
-        .poster-wrapper img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .age-rating {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: rgba(229, 9, 20, 0.9);
-            color: white;
-            padding: 3px 6px;
-            font-size: 12px;
-            font-weight: bold;
-            border-radius: 4px;
-        }
-
-        .movie-info {
-            padding: 15px;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-            justify-content: space-between;
-        }
-
-        .movie-name {
-            font-size: 15px;
-            font-weight: bold;
-            color: #ffffff;
-            margin-bottom: 5px;
-            line-height: 1.3;
-            min-height: 40px;
-        }
-
-        .movie-details {
-            font-size: 13px;
-            color: #aaaaaa;
-            margin-bottom: 5px;
-        }
-
-        .movie-details span {
-            color: #e50914;
-            font-weight: 600;
-        }
-
-        .sessions-block {
-            margin: 12px 0 5px 0;
-        }
-
-        .sessions-title {
-            font-size: 11px;
-            color: #666666;
-            text-transform: uppercase;
-            margin-bottom: 6px;
-            letter-spacing: 0.5px;
-        }
-
-        .sessions-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-        }
-.session-time {
-            background-color: #222222;
-            color: #ffffff;
-            padding: 5px 8px;
-            font-size: 12px;
-            border-radius: 4px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: background-color 0.2s;
-        }
-
-        .session-time:hover {
-            background-color: #e50914;
-        }
-
-        .ticket-btn {
-            background-color: transparent;
-            border: 1px solid #e50914;
-            color: #ffffff;
-            padding: 8px 0;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 600;
-            text-align: center;
-            text-decoration: none;
-            transition: background-color 0.3s;
-            margin-top: 10px;
-        }
-
-        .ticket-btn:hover {
-            background-color: #e50914;
-        }
-
-        .main-footer {
-            background-color: #0a0a0a;
-            padding: 30px 0;
-            border-top: 1px solid #1a1a1a;
-            font-size: 14px;
-            color: #666666;
-            margin-top: 50px;
-        }
-
-        .footer-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        @media (max-width: 1000px) {
-            .movies-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-        @media (max-width: 600px) {
-            .movies-grid { grid-template-columns: repeat(1, 1fr); }
-        }
-    </style>
-</head>
-<body>
-
-    <header class="main-header">
-        <div class="container header-container">
-            <a href="index.html" class="logo">Cinema<span>Verse</span></a>
-            <nav class="main-nav">
-                <a href="index.html">Главная</a>
-                <a href="afisha.html" class="active">Афиша</a>
-                <a href="popcorn.html">Кинобар</a>
-                <a href="halls.html">Залы</a>
-                <a href="about.html">О нас</a>
-                <a href="contacts.html">Контакты</a>
-            </nav>
-        </div>
-    </header>
-
-    <main class="movies-section">
-        <div class="container">
-            <h1 class="section-title">Расписание сеансов</h1>
-            <p class="section-subtitle">Выберите подходящий зал, время и цену билета</p>
-            
-            <div class="movies-grid">
-                
-                <div class="movie-card">
-                    <div class="poster-wrapper">
-                        <span class="age-rating">16+</span>
-                        <img src="images/movie1.jpg" alt="Дюна">
-                    </div>
-                    <div class="movie-info">
-                        <div>
-                            <h3 class="movie-name">Дюна: Часть первая</h3>
-                            <p class="movie-details">Зал: <span>Красный зал</span></p>
-                            <p class="movie-details">Цена: <span>от 350 ₽</span></p>
-                            
-                            <div class="sessions-block">
-                                <p class="sessions-title">Время сеансов:</p>
-                                <div class="sessions-list">
-                                    <a href="halls.html" class="session-time">10:00</a>
-                                    <a href="halls.html" class="session-time">13:10</a>
-                                    <a href="halls.html" class="session-time">19:40</a>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="halls.html" class="ticket-btn">Выбрать место</a>
-                    </div>
-                </div>
-
-                <div class="movie-card">
-                    <div class="poster-wrapper">
-                        <span class="age-rating">18+</span>
-<img src="images/movie2.jpg" alt="Оппенгеймер">
-                    </div>
-                    <div class="movie-info">
-                        <div>
-                            <h3 class="movie-name">Оппенгеймер</h3>
-                            <p class="movie-details">Зал: <span>Синий зал</span></p>
-                            <p class="movie-details">Цена: <span>от 400 ₽</span></p>
-                            
-                            <div class="sessions-block">
-                                <p class="sessions-title">Время сеансов:</p>
-                                <div class="sessions-list">
-                                    <a href="halls.html" class="session-time">12:00</a>
-                                    <a href="halls.html" class="session-time">16:30</a>
-                                    <a href="halls.html" class="session-time">21:00</a>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="halls.html" class="ticket-btn">Выбрать место</a>
-                    </div>
-                </div>
-
-                <div class="movie-card">
-                    <div class="poster-wrapper">
-                        <span class="age-rating">12+</span>
-                        <img src="images/movie3.jpg" alt="Человек-паук">
-                    </div>
-                    <div class="movie-info">
-                        <div>
-                            <h3 class="movie-name">Человек-паук: Нет пути домой</h3>
-                            <p class="movie-details">Зал: <span>IMAX зал</span></p>
-                            <p class="movie-details">Цена: <span>от 450 ₽</span></p>
-                            
-                            <div class="sessions-block">
-                                <p class="sessions-title">Время сеансов:</p>
-                                <div class="sessions-list">
-                                    <a href="halls.html" class="session-time">11:10</a>
-                                    <a href="halls.html" class="session-time">14:50</a>
-                                    <a href="halls.html" class="session-time">18:15</a>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="halls.html" class="ticket-btn">Выбрать место</a>
-                    </div>
-                </div>
-
-                <div class="movie-card">
-                    <div class="poster-wrapper">
-                        <span class="age-rating">16+</span>
-                        <img src="images/movie4.jpg" alt="Интерстеллар">
-                    </div>
-                    <div class="movie-info">
-                        <div>
-                            <h3 class="movie-name">Интерстеллар</h3>
-                            <p class="movie-details">Зал: <span>Красный зал</span></p>
-                            <p class="movie-details">Цена: <span>от 350 ₽</span></p>
-                            
-                            <div class="sessions-block">
-                                <p class="sessions-title">Время сеансов:</p>
-                                <div class="sessions-list">
-                                    <a href="halls.html" class="session-time">14:00</a>
-                                    <a href="halls.html" class="session-time">17:40</a>
-                                    <a href="halls.html" class="session-time">22:10</a>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="halls.html" class="ticket-btn">Выбрать место</a>
-                    </div>
-                </div>
-
-                <div class="movie-card">
-                    <div class="poster-wrapper">
