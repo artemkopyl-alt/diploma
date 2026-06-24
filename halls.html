@@ -1,138 +1,708 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CinemaVerse - Залы</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>CinemaVerse - Афиша</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #050505;
+            color: #ffffff;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            width: 100%;
+        }
+
+        .main-header {
+            background-color: #0a0a0a;
+            border-bottom: 2px solid #e50914;
+            padding: 20px 0;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: #ffffff;
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: #e50914;
+        }
+
+        .main-nav a {
+            color: #aaaaaa;
+            text-decoration: none;
+            margin-left: 25px;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        .main-nav a:hover, .main-nav a.active {
+            color: #e50914;
+        }
+
+        .movies-section {
+            padding: 40px 0 60px 0;
+        }
+
+        .section-title {
+            font-size: 32px;
+            color: #e50914;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .section-subtitle {
+            font-size: 16px;
+            color: #aaaaaa;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .movies-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+        }
+
+        .movie-card {
+            background-color: #111111;
+            border: 1px solid #1a1a1a;
+            border-radius: 10px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s, border-color 0.3s;
+            position: relative;
+        }
+
+        .movie-card:hover {
+            transform: translateY(-5px);
+            border-color: #e50914;
+        }
+
+        .poster-wrapper {
+            width: 100%;
+            height: 280px;
+            background-color: #222222;
+            position: relative;
+        }
+
+        .poster-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .age-rating {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(229, 9, 20, 0.9);
+            color: white;
+            padding: 3px 6px;
+            font-size: 12px;
+            font-weight: bold;
+            border-radius: 4px;
+        }
+
+        .movie-info {
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: space-between;
+        }
+
+        .movie-name {
+            font-size: 15px;
+            font-weight: bold;
+            color: #ffffff;
+            margin-bottom: 5px;
+            line-height: 1.3;
+            min-height: 40px;
+        }
+
+        .sessions-block {
+            margin: 10px 0;
+        }
+
+        .sessions-title {
+            font-size: 11px;
+            color: #666666;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+            letter-spacing: 0.5px;
+        }
+
+        .sessions-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .session-time {
+            background-color: #222222;
+            color: #ffffff;
+            padding: 4px 6px;
+            font-size: 12px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.2s, color 0.2s;
+        }
+.session-time:hover {
+            background-color: #e50914;
+            color: #ffffff;
+        }
+
+        .ticket-btn {
+            background-color: transparent;
+            border: 1px solid #e50914;
+            color: #ffffff;
+            padding: 8px 0;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+        }
+
+        .ticket-btn:hover {
+            background-color: #e50914;
+        }
+
+        .main-footer {
+            background-color: #0a0a0a;
+            padding: 30px 0;
+            border-top: 1px solid #1a1a1a;
+            font-size: 14px;
+            color: #666666;
+            margin-top: 50px;
+        }
+
+        .footer-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        @media (max-width: 1000px) {
+            .movies-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+        @media (max-width: 600px) {
+            .movies-grid { grid-template-columns: repeat(1, 1fr); }
+        }
+    </style>
 </head>
 <body>
 
     <header class="main-header">
         <div class="container header-container">
-            <div class="main-nav">
-                <div class="logo">
-                    <a href="index.html">🍿 <span>CinemaVerse</span></a>
-                </div>
-                <nav class="main-nav">
-                    <ul>
-                        <li><a href="index.html">Главная</a></li>
-                        <li><a href="afisha.html">Афиша</a></li>
-                        <li><a href="popcorn.html">Кинобар</a></li>
-                        <li><a href="halls.html" class="active">Залы</a></li>
-                        <li><a href="about.html">О нас</a></li>
-                        <li><a href="contacts.html">Контакты</a></li>
-                    </ul>
-                </nav>
-            </div>
+            <a href="index.html" class="logo">Cinema<span>Verse</span></a>
+            <nav class="main-nav">
+                <a href="index.html">Главная</a>
+                <a href="afisha.html" class="active">Афиша</a>
+                <a href="popcorn.html">Кинобар</a>
+                <a href="halls.html">Залы</a>
+                <a href="about.html">О нас</a>
+                <a href="contacts.html">Контакты</a>
+            </nav>
         </div>
     </header>
 
-    <main>
-        <section class="halls-section" style="padding: 60px 0; color: #fff; max-width: 900px; margin: 0 auto;">
-            <h2 style="font-size: 36px; margin-bottom: 10px; color: #e50914; text-align: center;">Наши Кинозалы</h2>
-            <p style="font-size: 18px; color: #aaa; margin-bottom: 40px; text-align: center;">Каждый наш зал оборудован по последнему слову техники для вашего комфорта.</p>
+    <main class="movies-section">
+        <div class="container">
+            <h1 class="section-title">Сейчас в кино</h1>
+            <p class="section-subtitle">Актуальное расписание сеансов в мультиплексе CinemaVerse</p>
             
-            <div style="display: flex; flex-direction: column; gap: 40px; padding: 0 20px;">
-                <div style="background: #1a1a1a; padding: 30px; border-radius: 8px; border: 1px solid #222; display: flex; flex-wrap: wrap; gap: 20px; align-items: center;">
-                    <div style="font-size: 60px; background: #222; width: 100px; height: 100px; display: flex; align-items: center; justify-content: center; border-radius: 8px;">🎬</div>
-                    <div style="flex: 1; min-width: 250px;">
-                        <h3 style="font-size: 24px; margin-bottom: 10px; color: #e50914;">Зал 1: Classic Hall</h3>
-                        <p style="color: #aaa; margin-bottom: 10px;">Большой классический зал на 150 мест. Идеально подходит для громких мировых премьер и блокбастеров.</p>
-                        <span style="color: #666; font-size: 14px;">🔊 Звук: Dolby Atmos | 🖥️ Экран: 4K Ultra HD</span>
-                    </div>
-                </div>
+            <div class="movies-grid">
                 
-
-                <div style="margin-top: 20px; background: rgba(255,255,255,0.05); padding: 15px; border-radius: 6px; text-align: left; font-family: sans-serif;">
-                <span style="color: #fff; font-size: 14px; display: block; margin-bottom: 10px; font-weight: bold;">Доступные форматы показов:</span>
-                <div style="display: flex; gap: 15px; flex-wrap: wrap;">
-                    <label style="color: #aaa; font-size: 14px; cursor: pointer; display: flex; align-items: center; gap: 5px;">
-                        <input type="radio" name="format1" checked style="accent-color: #e50914;"> Standard 2D
-                    </label>
-                    <label style="color: #aaa; font-size: 14px; cursor: pointer; display: flex; align-items: center; gap: 5px;">
-                        <input type="radio" name="format1" style="accent-color: #e50914;"> RealD 3D 😎
-                    </label>
-                    <label style="color: #aaa; font-size: 14px; cursor: pointer; display: flex; align-items: center; gap: 5px;">
-                        <input type="radio" name="format1" style="accent-color: #e50914;"> IMAX 4K 🚀
-                    </label>
-                </div>
-            </div>
-
-
-                <div style="background: #1a1a1a; padding: 30px; border-radius: 8px; border: 1px solid #222; display: flex; flex-wrap: wrap; gap: 20px; align-items: center;">
-                    <div style="font-size: 60px; background: #222; width: 100px; height: 100px; display: flex; align-items: center; justify-content: center; border-radius: 8px;">✨</div>
-                    <div style="flex: 1; min-width: 250px;">
-                        <h3 style="font-size: 24px; margin-bottom: 10px; color: #e50914;">Зал 2: VIP Lounge</h3>
-                        <p style="color: #aaa; margin-bottom: 10px;">Повышенный комфорт. Всего 30 мест, полностью раскладывающиеся кожаные кресла-реклайнеры и кнопка вызова официанта.</p>
-                        <span style="color: #666; font-size: 14px;">🔊 Звук: Dolby Digital | 🛋️ Комфорт: Кресла-трансформеры</span>
-                        <div style="margin: 50px auto; padding: 30px 20px; background: #1c1c1e; border-radius: 10px; max-width: 900px;">
-        <h3 style="color: #e50914; text-align: center; margin-bottom: 30px; font-size: 24px; font-family: sans-serif;">В каждом зале для вас:</h3>
-        
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; font-family: sans-serif;">
-            
-            <div style="background: #1a1a1a; padding: 20px; border-radius: 8px; border: 1px solid #222; text-align: center;">
-                <div style="font-size: 45px; margin-bottom: 10px;">🔊</div>
-                <h4 style="color: #fff; margin: 10px 0 5px 0; font-size: 18px;">Звук Dolby Atmos</h4>
-                <p style="color: #aaa; font-size: 14px; margin: 0; line-height: 1.4;">Полное погружение в атмосферу фильма благодаря трехмерному звуку.</p>
-            </div>
-            <div style="background: #1a1a1a; padding: 35px; border-radius: 12px; margin-top: 30px; border: 1px solid #333; position: relative;">
-            <div style="position: absolute; top: 20px; right: 20px; background: #e50914; color: #fff; padding: 5px 15px; border-radius: 4px; font-weight: bold; font-size: 18px;">4DX</div>
-            
-            <div style="font-size: 50px; margin-bottom: 20px;">🌀</div>
-            <h3 style="color: #e50914; font-size: 28px; margin-bottom: 15px; margin-top: 0;">Зал 4: Технология 4DX</h3>
-            
-            <p style="color: #ccc; font-size: 16px; line-height: 1.8; margin-bottom: 20px;">
-                Ощутите кино всем телом! Зал 4DX — это не просто просмотр, а настоящее приключение. 
-                Подвижные кресла синхронизированы с каждым движением камеры, а встроенные системы 
-                дополняют картинку порывами ветра, туманом, запахами и даже вспышками молний.
-            </p>
-
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; border-top: 1px solid #333; padding-top: 20px;">
-                <div style="color: #fff; font-size: 14px;">🚀 <b>Движение:</b> Вибрация и наклоны</div>
-                <div style="color: #fff; font-size: 14px;">🌊 <b>Стихии:</b> Вода, ветер и туман</div>
-                <div style="color: #fff; font-size: 14px;">✨ <b>Эффекты:</b> Запахи и стробоскопы</div>
-                <div style="color: #fff; font-size: 14px;">🛋️ <b>Комфорт:</b> Кожаные 4D-кресла</div>
-            </div>
-        </div>
-
-
-            <div style="background: #1a1a1a; padding: 20px; border-radius: 8px; border: 1px solid #222; text-align: center;">
-                <div style="font-size: 45px; margin-bottom: 10px;">🖼️</div>
-                <h4 style="color: #fff; margin: 10px 0 5px 0; font-size: 18px;">Экраны 4K Ultra HD</h4>
-                <p style="color: #aaa; font-size: 14px; margin: 0; line-height: 1.4;">Идеально четкая картинка, сочные цвета и высокая контрастность.</p>
-            </div>
-
-            <div style="background: #1a1a1a; padding: 20px; border-radius: 8px; border: 1px solid #222; text-align: center;">
-                <div style="font-size: 45px; margin-bottom: 10px;">💺</div>
-                <h4 style="color: #fff; margin: 10px 0 5px 0; font-size: 18px;">VIP-кресла</h4>
-                <p style="color: #aaa; font-size: 14px; margin: 0; line-height: 1.4;">Мягкие кожаные кресла с электронной регулировкой наклона спинки.</p>
-            </div>
-            <div style="background: #1a1a1a; padding: 30px; border-radius: 8px; border: 1px solid #222; display: flex; flex-wrap: wrap; gap: 20px; align-items: center;">
-            <div style="font-size: 60px; background: #222; width: 100px; height: 100px; display: flex; align-items: center; justify-content: center; border-radius: 8px;">🎨</div>
-            
-            <div style="flex: 1; min-width: 250px; text-align: left; font-family: sans-serif;">
-                <h3 style="font-size: 24px; margin: 0 0 10px 0; color: #e50914;">Зал 3: Kids Zone</h3>
-                <p style="color: #aaa; margin: 0 0 10px 0; font-size: 15px; line-height: 1.4;">Яркий и уютный зал для детей и их родителей. Вместо обычных кресел — мягкие гипоаллергенные пуфы-мешки, а звук адаптирован для детского слуха.</p>
-                <span style="color: #666; font-size: 14px; display: block;">🍿 Особенности: Адаптивный свет | Мягкие пуфы-трансформеры</span>
-            </div>
-        </div>
-
-
-        </div>
-    </div>
+                <div class="movie-card">
+                    <div class="poster-wrapper">
+                        <span class="age-rating">16+</span>
+                        <img src="images/movie1.jpg" alt="Постер">
+                    </div>
+                    <div class="movie-info">
+                        <div>
+                            <h3 class="movie-name">Дюна: Часть первая</h3>
+                            <div class="sessions-block">
+                                <p class="sessions-title">Выберите время:</p>
+                                <div class="sessions-list">
+                                    <a href="halls.html" class="session-time">10:00</a>
+                                    <a href="halls.html" class="session-time">13:10</a>
+                                    <a href="halls.html" class="session-time">19:40</a>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="halls.html" class="ticket-btn">Купить билет</a>
                     </div>
                 </div>
+
+                <div class="movie-card">
+                    <div class="poster-wrapper">
+                        <span class="age-rating">18+</span>
+                        <img src="images/movie2.jpg" alt="Постер">
+                    </div>
+                    <div class="movie-info">
+                        <div>
+                            <h3 class="movie-name">Оппенгеймер</h3>
+                            <div class="sessions-block">
+                                <p class="sessions-title">Выберите время:</p>
+                                <div class="sessions-list">
+                                    <a href="halls.html" class="session-time">12:00</a>
+<a href="halls.html" class="session-time">16:30</a>
+                                    <a href="halls.html" class="session-time">21:00</a>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="halls.html" class="ticket-btn">Купить билет</a>
+                    </div>
+                </div>
+
+                <div class="movie-card">
+                    <div class="poster-wrapper">
+                        <span class="age-rating">12+</span>
+                        <img src="images/movie3.jpg" alt="Постер">
+                    </div>
+                    <div class="movie-info">
+                        <div>
+                            <h3 class="movie-name">Человек-паук: Нет пути домой</h3>
+                            <div class="sessions-block">
+                                <p class="sessions-title">Выберите время:</p>
+                                <div class="sessions-list">
+                                    <a href="halls.html" class="session-time">11:10</a>
+                                    <a href="halls.html" class="session-time">14:50</a>
+                                    <a href="halls.html" class="session-time">18:15</a>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="halls.html" class="ticket-btn">Купить билет</a>
+                    </div>
+                </div>
+
+                <div class="movie-card">
+                    <div class="poster-wrapper">
+                        <span class="age-rating">16+</span>
+                        <img src="images/movie4.jpg" alt="Постер">
+                    </div>
+                    <div class="movie-info">
+                        <div>
+                            <h3 class="movie-name">Интерстеллар</h3>
+                            <div class="sessions-block">
+                                <p class="sessions-title">Выберите время:</p>
+                                <div class="sessions-list">
+                                    <a href="halls.html" class="session-time">14:00</a>
+                                    <a href="halls.html" class="session-time">17:40</a>
+                                    <a href="halls.html" class="session-time">22:10</a>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="halls.html" class="ticket-btn">Купить билет</a>
+                    </div>
+                </div>
+
+                <div class="movie-card">
+                    <div class="poster-wrapper">
+                        <span class="age-rating">12+</span>
+                        <img src="images/movie5.jpg" alt="Постер">
+                    </div>
+                    <div class="movie-info">
+                        <div>
+                            <h3 class="movie-name">Аватар: Путь воды</h3>
+                            <div class="sessions-block">
+                                <p class="sessions-title">Выберите время:</p>
+                                <div class="sessions-list">
+                                    <a href="halls.html" class="session-time">10:30</a>
+                                    <a href="halls.html" class="session-time">15:00</a>
+                                    <a href="halls.html" class="session-time">20:00</a>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="halls.html" class="ticket-btn">Купить билет</a>
+                    </div>
+                </div>
+
             </div>
-        </section>
+        </div>
     </main>
 
     <footer class="main-footer">
         <div class="container footer-container">
-            <p>&copy; 2026 CinemaVerse. Дипломный проект Академии ШАГ.</p>
+            <p>&copy; 2026 CinemaVerse.</p>
             <p>Выполнил: Копылов Артем</p>
         </div>
     </footer>
 
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CinemaVerse - Афиша</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #050505;
+            color: #ffffff;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            width: 100%;
+        }
+
+        .main-header {
+            background-color: #0a0a0a;
+            border-bottom: 2px solid #e50914;
+            padding: 20px 0;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: #ffffff;
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: #e50914;
+        }
+
+        .main-nav a {
+            color: #aaaaaa;
+            text-decoration: none;
+            margin-left: 25px;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        .main-nav a:hover, .main-nav a.active {
+            color: #e50914;
+        }
+
+        .movies-section {
+            padding: 40px 0 60px 0;
+        }
+
+        .section-title {
+            font-size: 32px;
+            color: #e50914;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .section-subtitle {
+            font-size: 16px;
+            color: #aaaaaa;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .movies-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+        }
+
+        .movie-card {
+            background-color: #111111;
+            border: 1px solid #1a1a1a;
+            border-radius: 10px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s, border-color 0.3s;
+            position: relative;
+        }
+
+        .movie-card:hover {
+            transform: translateY(-5px);
+            border-color: #e50914;
+        }
+
+        .poster-wrapper {
+            width: 100%;
+            height: 280px;
+            background-color: #222222;
+            position: relative;
+        }
+
+        .poster-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .age-rating {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(229, 9, 20, 0.9);
+            color: white;
+            padding: 3px 6px;
+            font-size: 12px;
+            font-weight: bold;
+            border-radius: 4px;
+        }
+
+        .movie-info {
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: space-between;
+        }
+
+        .movie-name {
+            font-size: 15px;
+            font-weight: bold;
+            color: #ffffff;
+            margin-bottom: 5px;
+            line-height: 1.3;
+            min-height: 40px;
+        }
+
+        .movie-details {
+            font-size: 13px;
+            color: #aaaaaa;
+            margin-bottom: 5px;
+        }
+
+        .movie-details span {
+            color: #e50914;
+            font-weight: 600;
+        }
+
+        .sessions-block {
+            margin: 12px 0 5px 0;
+        }
+
+        .sessions-title {
+            font-size: 11px;
+            color: #666666;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+            letter-spacing: 0.5px;
+        }
+
+        .sessions-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+.session-time {
+            background-color: #222222;
+            color: #ffffff;
+            padding: 5px 8px;
+            font-size: 12px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.2s;
+        }
+
+        .session-time:hover {
+            background-color: #e50914;
+        }
+
+        .ticket-btn {
+            background-color: transparent;
+            border: 1px solid #e50914;
+            color: #ffffff;
+            padding: 8px 0;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+        }
+
+        .ticket-btn:hover {
+            background-color: #e50914;
+        }
+
+        .main-footer {
+            background-color: #0a0a0a;
+            padding: 30px 0;
+            border-top: 1px solid #1a1a1a;
+            font-size: 14px;
+            color: #666666;
+            margin-top: 50px;
+        }
+
+        .footer-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        @media (max-width: 1000px) {
+            .movies-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 600px) {
+            .movies-grid { grid-template-columns: repeat(1, 1fr); }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">Cinema<span>Verse</span></a>
+            <nav class="main-nav">
+                <a href="index.html">Главная</a>
+                <a href="afisha.html" class="active">Афиша</a>
+                <a href="popcorn.html">Кинобар</a>
+                <a href="halls.html">Залы</a>
+                <a href="about.html">О нас</a>
+                <a href="contacts.html">Контакты</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="movies-section">
+        <div class="container">
+            <h1 class="section-title">Расписание сеансов</h1>
+            <p class="section-subtitle">Выберите подходящий зал, время и цену билета</p>
+            
+            <div class="movies-grid">
+                
+                <div class="movie-card">
+                    <div class="poster-wrapper">
+                        <span class="age-rating">16+</span>
+                        <img src="images/movie1.jpg" alt="Дюна">
+                    </div>
+                    <div class="movie-info">
+                        <div>
+                            <h3 class="movie-name">Дюна: Часть первая</h3>
+                            <p class="movie-details">Зал: <span>Красный зал</span></p>
+                            <p class="movie-details">Цена: <span>от 350 ₽</span></p>
+                            
+                            <div class="sessions-block">
+                                <p class="sessions-title">Время сеансов:</p>
+                                <div class="sessions-list">
+                                    <a href="halls.html" class="session-time">10:00</a>
+                                    <a href="halls.html" class="session-time">13:10</a>
+                                    <a href="halls.html" class="session-time">19:40</a>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="halls.html" class="ticket-btn">Выбрать место</a>
+                    </div>
+                </div>
+
+                <div class="movie-card">
+                    <div class="poster-wrapper">
+                        <span class="age-rating">18+</span>
+<img src="images/movie2.jpg" alt="Оппенгеймер">
+                    </div>
+                    <div class="movie-info">
+                        <div>
+                            <h3 class="movie-name">Оппенгеймер</h3>
+                            <p class="movie-details">Зал: <span>Синий зал</span></p>
+                            <p class="movie-details">Цена: <span>от 400 ₽</span></p>
+                            
+                            <div class="sessions-block">
+                                <p class="sessions-title">Время сеансов:</p>
+                                <div class="sessions-list">
+                                    <a href="halls.html" class="session-time">12:00</a>
+                                    <a href="halls.html" class="session-time">16:30</a>
+                                    <a href="halls.html" class="session-time">21:00</a>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="halls.html" class="ticket-btn">Выбрать место</a>
+                    </div>
+                </div>
+
+                <div class="movie-card">
+                    <div class="poster-wrapper">
+                        <span class="age-rating">12+</span>
+                        <img src="images/movie3.jpg" alt="Человек-паук">
+                    </div>
+                    <div class="movie-info">
+                        <div>
+                            <h3 class="movie-name">Человек-паук: Нет пути домой</h3>
+                            <p class="movie-details">Зал: <span>IMAX зал</span></p>
+                            <p class="movie-details">Цена: <span>от 450 ₽</span></p>
+                            
+                            <div class="sessions-block">
+                                <p class="sessions-title">Время сеансов:</p>
+                                <div class="sessions-list">
+                                    <a href="halls.html" class="session-time">11:10</a>
+                                    <a href="halls.html" class="session-time">14:50</a>
+                                    <a href="halls.html" class="session-time">18:15</a>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="halls.html" class="ticket-btn">Выбрать место</a>
+                    </div>
+                </div>
+
+                <div class="movie-card">
+                    <div class="poster-wrapper">
+                        <span class="age-rating">16+</span>
+                        <img src="images/movie4.jpg" alt="Интерстеллар">
+                    </div>
+                    <div class="movie-info">
+                        <div>
+                            <h3 class="movie-name">Интерстеллар</h3>
+                            <p class="movie-details">Зал: <span>Красный зал</span></p>
+                            <p class="movie-details">Цена: <span>от 350 ₽</span></p>
+                            
+                            <div class="sessions-block">
+                                <p class="sessions-title">Время сеансов:</p>
+                                <div class="sessions-list">
+                                    <a href="halls.html" class="session-time">14:00</a>
+                                    <a href="halls.html" class="session-time">17:40</a>
+                                    <a href="halls.html" class="session-time">22:10</a>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="halls.html" class="ticket-btn">Выбрать место</a>
+                    </div>
+                </div>
+
+                <div class="movie-card">
+                    <div class="poster-wrapper">
