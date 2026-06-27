@@ -6,8 +6,8 @@
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #141414; /* Стильный темный фон (как на Netflix) */
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #1a0f12; /* Глубокий винный/бордовый оттенок */
     color: #ffffff;
     line-height: 1.6;
 }
